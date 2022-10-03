@@ -4,21 +4,25 @@ import { Link } from 'react-router-dom';
 
  function Login({handleLogin}){
     
-    const [data, setData] = useState({
-        email: '', password: ''
-    })
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
     
-
-const handleChange = (e) => {
-    const {name, value} = e.target;
-    setData({...data, [name]: value});
-}
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        const {email, password } = data;
-        handleLogin({email, password})
-        };
+        const userData = {email, password };
+        handleLogin(userData)
+        }
+
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    
+    const handleChangePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
+
         return(
             <div className='login'>
         <h2 className='login__title'>Sign Up</h2>
@@ -28,16 +32,16 @@ const handleChange = (e) => {
             name='email'
             className='login__input'
             placeholder='Email'
-            value={data.email}
-            onChange={handleChange}/>
+            value={email}
+            onChange={handleChangeEmail}/>
             
             <input
             type='password'
             name='password'
             className='login__input'
             placeholder='Password'
-            value={data.password}
-            onChange={handleChange}/>
+            value={password}
+            onChange={handleChangePassword}/>
 
             <div className='login__footer'>
                 <div className='login__footer-wrapper'>

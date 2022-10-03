@@ -3,22 +3,26 @@ import { Link } from 'react-router-dom';
 
 
  function Register({handleRegister}) {
-    
-    const [data, setData] = useState({
-        email: '', password: ''
-    })
-    
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
-const handleChange = (e) => {
-    const {name, value} = e.target;
-    setData({...data, [name]: value});
-}
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const {email, password } = data;
-        handleRegister({email, password})
+        const userData = {email, password };
+        handleRegister(userData)
         }
+
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    
+    const handleChangePassword = (e) => {
+        setPassword(e.target.value)
+    }
+    
     
 
 return(
@@ -30,16 +34,16 @@ return(
             name='email'
             className='register__input'
             placeholder='Email'
-            value={data.email}
-            onChange={handleChange}/>
+            value={email}
+            onChange={handleChangeEmail}/>
             
             <input
             type='password'
             name='password'
             className='register__input'
             placeholder='Password'
-            value={data.password}
-            onChange={handleChange}/>
+            value={password}
+            onChange={handleChangePassword}/>
 
             <div className='register__footer'>
                 <div className='register__footer-wrapper'>

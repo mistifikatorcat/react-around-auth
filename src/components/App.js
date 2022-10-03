@@ -1,5 +1,6 @@
 import React from "react";
 import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
@@ -194,10 +195,10 @@ function App() {
 
   //register a new user
 
-  function signup({email, password}){
+  function handleRegister({email, password}){
     auth.register(email, password)
     .then((res) => {
-      if (res.data._id){
+      if (res){
         setIsSuccess('success');
           history.push('/login');
       }
@@ -214,7 +215,7 @@ function App() {
     })
   }
 
-  function signin(email, password){
+  function handleLogin(email, password){
     auth.login(email, password)
     .then((res) => {
     if (res.token){
@@ -242,6 +243,7 @@ function App() {
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
+        <BrowserRouter>
         <Header
         isLoggedIn={isLoggedIn}
         email={userData.email}
@@ -295,11 +297,11 @@ function App() {
           </ProtectedRoute>
           
           <Route path='/signup'>
-            <Register signup={signup} />
+            <Register handleRegister={handleRegister} />
           </Route>
 
           <Route path='/signin'>
-            <Login signin={signin} />
+            <Login handleLogin={handleLogin} />
           </Route>
 
           <Route>
@@ -311,6 +313,7 @@ function App() {
           </Route>
           
         </Switch>
+        </BrowserRouter>
         <InfoToolTip 
           isOpen={isInfoToolTipOpen}
           onClose={closeAllPopups}

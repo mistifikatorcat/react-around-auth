@@ -13,14 +13,14 @@ export const register = (email, password) => {
             },
             body: JSON.stringify({email, password}),
         })
-        .then((res) => {
+       /* .then((res) => {
             if (res.status === 201){
                 return res.json();
             }
         })
         .then((res) => {
             return res;
-        })
+        })*/
         
 }
 
