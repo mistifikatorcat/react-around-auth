@@ -48,7 +48,7 @@ return(
             <div className='register__footer'>
                 <div className='register__footer-wrapper'>
                     <button type='submit' className='register__submit'>Sign Up</button>
-                    <p className='register__footer-text'>Already a member?
+                    <p className='register__footer-text'>Already a member? {' '}
                     <Link to='/login' className='register__link'>Log in here!</Link>
                     </p>
                 </div>

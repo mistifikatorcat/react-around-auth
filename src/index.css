@@ -14,3 +14,5 @@
 @import url(./blocks/profile.css);
 @import url(./fonts/inter.css);
 @import url(./vendor/normalize.css);
+@import url(./blocks/login.css);
+@import url(./blocks/register.css);
