@@ -47,20 +47,12 @@ export const login = (email, password) => {
 }
 
 export const checkTokenValidity = (token) => {
-    return (fetcher(`${BASE_URL}/users/me`), {
-        method: "GET",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "Authorization" : `Bearer ${token}`
-            }
-        })
-        .then((res) => {
-            if (res.status === 200){
-                return res.json();
-            }
-        })
-        .then((res) => {
-            return res;
-        })
+    return fetcher(`${BASE_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}` 
+      },
+    })
 }
