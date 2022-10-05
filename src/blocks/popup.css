@@ -43,6 +43,36 @@
   opacity: 0.6;
 }
 
+.popup__tooltip{
+  height: 330px;
+  width: 430px;
+  background-color: white;
+  color: white;
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 15%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  padding: 34px 36px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.popup__icon{
+  margin: 60px 155px 32px;
+}
+
+.popup__message{
+  font-family: "Inter";
+font-size: 24px;
+font-weight: 900;
+line-height: 29px;
+letter-spacing: 0em;
+text-align: center;
+color: black;
+}
+
 @media screen and (max-width: 632px) {
   .popup {
     max-width: 633px;
