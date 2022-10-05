@@ -64,20 +64,24 @@ function App() {
     if (token) {
       auth.checkTokenValidity(token)
       .then((res) => {
-        setIsLoggedIn(true);
-        setUserData({email: res.data.email});
-        history.push('/main');
+        if(res) {
+          setIsLoggedIn(true);
+          setUserData({email: res.data.email});
+          history.push('main');
+          setIsCheckingToken(false);
+        }
+        else{
+          localStorage.removeItem('token');
+        }
       })
       .catch((err) => {
         console.log(err);
-        history.push('/login');
+        history.push('/signin');
       })
       .finally(() => {
         setIsCheckingToken(false);
       })
     }
-    else
-    setIsCheckingToken(false);
   }, []);
 
   //event handlers
@@ -200,7 +204,7 @@ function App() {
     .then((res) => {
       if (res){
         setIsSuccess('success');
-          history.push('/signin');
+        history.push('/signin');
       }
       else{
         setIsSuccess('fail');
@@ -215,14 +219,18 @@ function App() {
     })
   }
 
-  function handleLogin(email, password){
+  function handleLogin({email, password}){
     auth.login(email, password)
     .then((res) => {
-    if (res.token){
+    if (res){
       setIsLoggedIn(true);
       setUserData({email});
       localStorage.setItem('token', res.token);
       history.push('/main');
+    }
+    else{
+      setIsSuccess('fail');
+      setIsInfoToolTipOpen(true);
     }
     })
     .catch((err) => {
@@ -251,7 +259,7 @@ function App() {
         
         <Switch>
           <ProtectedRoute
-          exact path='/main'
+          exact path={'/main'}
           isLoggedIn={isLoggedIn}
           isCheckingToken={isCheckingToken}>
         
@@ -296,19 +304,19 @@ function App() {
           </Main>
           </ProtectedRoute>
           
-          <Route path='/signup'>
+          <Route path={'/signup'}>
             <Register handleRegister={handleRegister} />
           </Route>
 
-          <Route path='/signin'>
+          <Route path={'/signin'}>
             <Login handleLogin={handleLogin} />
           </Route>
 
           <Route>
             {isLoggedIn ? (
-              <Redirect to='/main' />
+              <Redirect to={'/main'} />
             ) : (
-            <Redirect to='/signin' />
+            <Redirect to={'/signin'} />
             )}
           </Route>
           
