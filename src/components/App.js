@@ -60,9 +60,9 @@ function App() {
   //checking token
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.checkTokenValidity(jwt)
+    const token = localStorage.getItem('token');
+    if (token) {
+      auth.checkTokenValidity(token)
       .then((res) => {
         setIsLoggedIn(true);
         setUserData({email: res.data.email});
@@ -221,7 +221,7 @@ function App() {
     if (res.token){
       setIsLoggedIn(true);
       setUserData({email});
-      localStorage.setItem('jwt', res.token);
+      localStorage.setItem('token', res.token);
       history.push('/main');
     }
     })
@@ -237,7 +237,7 @@ function App() {
 
   function signout(){
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('token');
     history.push('/signin');
   }
 
