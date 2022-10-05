@@ -33,7 +33,7 @@ function App() {
   const [userData, setUserData] = React.useState({email: 'email@mail.com'})
   const [isCheckingToken, setIsCheckingToken] = React.useState(true);
   const [isSuccess, setIsSuccess] = React.useState('');
-  const history = useHistory;
+  const history = useHistory();
 
   //getting info from the server
 
@@ -200,7 +200,7 @@ function App() {
     .then((res) => {
       if (res){
         setIsSuccess('success');
-          history.push('/login');
+          history.push('/signin');
       }
       else{
         setIsSuccess('fail');

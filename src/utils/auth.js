@@ -1,4 +1,4 @@
-export const BASE_URL = "https://register.nomoreparties.co/";
+export const BASE_URL = "https://register.nomoreparties.co";
 
 const fetcher = (url, headers) => {
     return fetch(url, headers).then((res) =>
@@ -15,14 +15,7 @@ const fetcher = (url, headers) => {
       },
       body: JSON.stringify({ email, password }),
     })
-       .then((res) => {
-            if (res.status === 201){
-                return res.json();
-            }
-        })
-        .then((res) => {
-            return res;
-        })
+  
         
 }
 
@@ -35,10 +28,6 @@ export const login = (email, password) => {
         },
         body: JSON.stringify({ email, password }),
       })
-        .then((res) => {
-                return res.json();
-            
-        })
         .then((data) => {
             localStorage.setItem("jwt", data.jwt);
             localStorage.setItem("email", email);
