@@ -23,36 +23,34 @@
 }
 
 .popup__close {
-
-    display: flex;
-    margin-bottom: 3px;
-    justify-content: flex-end;
-    align-self: flex-end;
-    background: url(../images/Close_Icon.svg);
-    background-color: rgb(0, 0, 0, 0);
-    transition: visibility 0.5s linear, opacity 0.5s linear;
-    max-width: 40px;
-    min-height: 40px;
-    width: 40px;
-    height: 40px;
-    border: 0;
-    cursor: pointer;
-    z-index: 5;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: transparent;
-    position: absolute;
-    padding: 0;
-    top: -40px;
-    right: -40px;
+  display: flex;
+  margin-bottom: 3px;
+  justify-content: flex-end;
+  align-self: flex-end;
+  background: url(../images/Close_Icon.svg);
+  background-color: rgb(0, 0, 0, 0);
+  transition: visibility 0.5s linear, opacity 0.5s linear;
+  max-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  cursor: pointer;
+  z-index: 5;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  padding: 0;
+  top: -40px;
+  right: -40px;
 }
 
 .popup__close:hover {
   opacity: 0.6;
 }
 
-.popup__tooltip{
+.popup__tooltip {
   height: 330px;
   width: 430px;
   background-color: white;
@@ -69,20 +67,49 @@
   position: fixed;
 }
 
-.popup__icon{
+.popup__tooltip-close {
+  display: flex;
+  margin-bottom: 3px;
+  justify-content: flex-end;
+  align-self: flex-end;
+  background: url(../images/Close_Icon.svg);
+  background-color: rgb(0, 0, 0, 0);
+  transition: visibility 0.5s linear, opacity 0.5s linear;
+  max-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  cursor: pointer;
+  z-index: 5;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  position: absolute;
+  padding: 0;
+  top: -40px;
+  right: -40px;
+}
+
+.popup__tooltip-close:hover {
+  opacity: 0.6;
+}
+
+.popup__icon {
   margin: 60px 155px 32px;
 }
 
-.popup__message{
+.popup__message {
   font-family: "Inter";
-font-size: 24px;
-font-weight: 900;
-line-height: 29px;
-letter-spacing: 0em;
-text-align: center;
-color: black;
-margin: 0;
-padding: 0 36px 60px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: black;
+  margin: 0;
+  padding: 0 36px 60px;
 }
 
 @media screen and (max-width: 632px) {

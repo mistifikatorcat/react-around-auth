@@ -22,47 +22,46 @@
   display: flex;
 }
 
-.header__mail{
+.header__mail {
   font-family: "Inter";
-font-size: 18px;
-font-weight: 500;
-line-height: 22px;
-letter-spacing: 0em;
-text-align: right;
-margin: 0;
-margin-right: 24px;
-padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  margin: 0;
+  margin-right: 24px;
+  padding: 0;
 }
 
-.header__link{
+.header__link {
   font-family: "Inter";
-font-size: 18px;
-font-weight: 400;
-line-height: 22px;
-letter-spacing: 0em;
-text-align: right;
-color: #fff;
-opacity: 100%;
-transition: opacity 0.3s ease-in-out;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #fff;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.header__link:hover{
+.header__link:hover {
   opacity: 0.8;
 }
 
-.header__logout{
+.header__logout {
   font-family: "Inter";
-font-size: 18px;
-font-weight: 400;
-line-height: 22px;
-letter-spacing: 0em;
-text-align: right;
-opacity: 100%;
-transition: opacity 0.3s ease-in-out;
-
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.header__logout:hover{
+.header__logout:hover {
   opacity: 0.8;
 }
 

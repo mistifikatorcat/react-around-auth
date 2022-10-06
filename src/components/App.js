@@ -1,7 +1,6 @@
 import React from "react";
-import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
-import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import api from "../utils/api";
@@ -11,7 +10,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
-import * as auth from '../utils/auth';
+import * as auth from "../utils/auth";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -25,14 +24,14 @@ function App() {
     React.useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
-    visibility: false
+    visibility: false,
   });
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  const [isLoggedIn, setIsLoggedIn ] = React.useState(false);
-  const [userData, setUserData] = React.useState({email: 'email@mail.com'})
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [userData, setUserData] = React.useState({ email: "email@mail.com" });
   const [isCheckingToken, setIsCheckingToken] = React.useState(true);
-  const [isSuccess, setIsSuccess] = React.useState('');
+  const [isSuccess, setIsSuccess] = React.useState("");
   const history = useHistory();
 
   //getting info from the server
@@ -60,28 +59,41 @@ function App() {
   //checking token
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      auth.checkTokenValidity(token)
-      .then((res) => {
-        if(res) {
-          setIsLoggedIn(true);
-          setUserData({email: res.data.email});
-          history.push('main');
+      auth
+        .checkTokenValidity(token)
+        .then((res) => {
+          if (res) {
+            setIsLoggedIn(true);
+            setUserData({ email: res.data.email });
+            history.push("main");
+          } else {
+            localStorage.removeItem("token");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          history.push("/signin");
+        })
+        .finally(() => {
           setIsCheckingToken(false);
-        }
-        else{
-          localStorage.removeItem('token');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        history.push('/signin');
-      })
-      .finally(() => {
-        setIsCheckingToken(false);
-      })
+        });
     }
+  }, []);
+
+  //close by esc
+
+  React.useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
   //event handlers
@@ -107,13 +119,12 @@ function App() {
     });
   }
 
-
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard({
-      visibility: false
+      visibility: false,
     });
     setIsInfoToolTipOpen(false);
   }
@@ -125,17 +136,18 @@ function App() {
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
     // Send a request to the API and getting the updated card data
-    api.changeLikeCardStatus(card._id, !isLiked)
-    .then((newCard) => {
-      setCards((state) =>
-        state.map((currentCard) =>
-          currentCard._id === card._id ? newCard : currentCard
-        )
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   //delete card handler
@@ -148,7 +160,6 @@ function App() {
           return currentCard._id !== card._id;
         });
         setCards(updatedCards);
-        
       })
       .catch((err) => {
         console.log(err);
@@ -199,69 +210,71 @@ function App() {
 
   //register a new user
 
-  function handleRegister({email, password}){
-    auth.register(email, password)
-    .then((res) => {
-      if (res){
-        setIsSuccess('success');
-        history.push('/signin');
-      }
-      else{
-        setIsSuccess('fail');
-      }
-  })
-    .catch((err) => {
-      console.log(err);
-      setIsSuccess('fail');
-    })
-    .finally(() => {
-      setIsInfoToolTipOpen(true);
-    })
+  function handleRegister({ email, password }) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res) {
+          setIsSuccess("success");
+          history.push("/signin");
+        } else {
+          setIsSuccess("fail");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsSuccess("fail");
+      })
+      .finally(() => {
+        setIsInfoToolTipOpen(true);
+      });
   }
 
-  function handleLogin({email, password}){
-    auth.login(email, password)
-    .then((res) => {
-    if (res){
-      setIsLoggedIn(true);
-      setUserData({email});
-      localStorage.setItem('token', res.token);
-      history.push('/main');
-    }
-    else{
-      setIsSuccess('fail');
-      setIsInfoToolTipOpen(true);
-    }
-    })
-    .catch((err) => {
-      console.log(err);
-      setIsSuccess('fail');
-      setIsInfoToolTipOpen(true);
-    })
-    .finally(() => {
-      setIsCheckingToken(false);
-    })
+  function handleLogin({ email, password }) {
+    auth
+      .login(email, password)
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          setUserData({ email });
+          localStorage.setItem("token", res.token);
+          history.push("/main");
+        } else {
+          setIsSuccess("fail");
+          setIsInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsSuccess("fail");
+        setIsInfoToolTipOpen(true);
+      })
+      .finally(() => {
+        setIsCheckingToken(false);
+      });
   }
 
-  function signout(){
+  function signout() {
     setIsLoggedIn(false);
-    localStorage.removeItem('token');
-    history.push('/signin');
+    localStorage.removeItem("token");
+    history.push("/signin");
   }
 
   return (
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header
         isLoggedIn={isLoggedIn}
         email={userData.email}
-        signout={signout} />
-        
-        <Switch>
-          <ProtectedRoute
-          exact path='/main'
+        signout={signout}
+      />
+
+      <Switch>
+        <ProtectedRoute
+          exact
+          path="/main"
           isLoggedIn={isLoggedIn}
-          isCheckingToken={isCheckingToken}>
-        
+          isCheckingToken={isCheckingToken}
+        >
           <Main
             /*event handlers go here*/
             onEditAvatarClick={handleEditAvatarClick}
@@ -290,43 +303,29 @@ function App() {
               onClose={closeAllPopups}
               onAddPlaceSubmit={handleAddPlaceSubmit}
             />
-            {/* <PopupWithForm
-        name="delete"
-        title="Are you sure?"
-        isOpen={isDeletePopupOpen}
-        onClose={closeAllPopups}>
-          <fieldset className="form__fieldset">
-            <button className="form__button" type="submit" id="submitButton">Yes</button>
-          </fieldset>
-    </PopupWithForm>*/}
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           </Main>
-          </ProtectedRoute>
-          
-          <Route path={'/signup'}>
-            <Register handleRegister={handleRegister} />
-          </Route>
+        </ProtectedRoute>
 
-          <Route path={'/signin'}>
-            <Login handleLogin={handleLogin} />
-          </Route>
+        <Route path={"/signup"}>
+          <Register handleRegister={handleRegister} />
+        </Route>
 
-          <Route>
-            {isLoggedIn ? (
-              <Redirect to={'/main'} />
-            ) : (
-            <Redirect to={'/signin'} />
-            )}
-          </Route>
-          
-        </Switch>
-        <InfoToolTip 
-          isOpen={isInfoToolTipOpen}
-          onClose={closeAllPopups}
-          status={isSuccess}
-          />
-        <Footer />
-      </CurrentUserContext.Provider>
+        <Route path={"/signin"}>
+          <Login handleLogin={handleLogin} />
+        </Route>
+
+        <Route>
+          {isLoggedIn ? <Redirect to={"/main"} /> : <Redirect to={"/signin"} />}
+        </Route>
+      </Switch>
+      <InfoToolTip
+        isOpen={isInfoToolTipOpen}
+        onClose={closeAllPopups}
+        status={isSuccess}
+      />
+      <Footer />
+    </CurrentUserContext.Provider>
   );
 }
 
