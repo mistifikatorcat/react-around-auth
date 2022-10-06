@@ -323,7 +323,7 @@ function App() {
         <InfoToolTip 
           isOpen={isInfoToolTipOpen}
           onClose={closeAllPopups}
-          type={isSuccess}
+          status={isSuccess}
           />
         <Footer />
       </CurrentUserContext.Provider>
