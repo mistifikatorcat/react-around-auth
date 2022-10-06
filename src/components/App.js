@@ -1,6 +1,6 @@
 import React from "react";
 import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
-import { BrowserRouter } from "react-router-dom";
+
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
@@ -251,7 +251,6 @@ function App() {
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
-        <BrowserRouter>
         <Header
         isLoggedIn={isLoggedIn}
         email={userData.email}
@@ -259,7 +258,7 @@ function App() {
         
         <Switch>
           <ProtectedRoute
-          exact path={'/main'}
+          exact path='/main'
           isLoggedIn={isLoggedIn}
           isCheckingToken={isCheckingToken}>
         
@@ -321,7 +320,6 @@ function App() {
           </Route>
           
         </Switch>
-        </BrowserRouter>
         <InfoToolTip 
           isOpen={isInfoToolTipOpen}
           onClose={closeAllPopups}
