@@ -1,13 +1,16 @@
 .login{
     font-family: "Inter";
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    align-items: center;
-    row-gap: 60px;
     min-height: 100vh;
     max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 80px;
+    padding: 0;
+    padding-top: 60px;
 }
 
 .login__title{

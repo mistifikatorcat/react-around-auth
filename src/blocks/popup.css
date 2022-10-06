@@ -81,6 +81,8 @@ line-height: 29px;
 letter-spacing: 0em;
 text-align: center;
 color: black;
+margin: 0;
+padding: 0 36px 60px;
 }
 
 @media screen and (max-width: 632px) {
